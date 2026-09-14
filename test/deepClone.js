@@ -26,31 +26,31 @@ QUnit.module('Тестируем функцию deepClone', () => {
     });
 
     QUnit.test('Работает правильно для глубоко вложенного объекта', function (assert) {
-    const original = {
-        a: {
-            b: {
-                c: 42
+        const original = {
+            a: {
+                b: {
+                    c: 42
+                }
             }
-        }
-    };
+        };
 
-    const cloned = deepClone(original);
+        const cloned = deepClone(original);
 
-    assert.deepEqual(cloned, original, 'Объекты содержат одинаковые данные');
-    assert.notStrictEqual(cloned.a.b, original.a.b, 'Глубоко вложенный объект скопирован');
+        assert.deepEqual(cloned, original, 'Объекты содержат одинаковые данные');
+        assert.notStrictEqual(cloned.a.b, original.a.b, 'Глубоко вложенный объект скопирован');
     });
 
     QUnit.test('Работает правильно для объекта с вложенным массивом', function (assert) {
-    const original = {
-        numbers: [1, 2, 3],
-        data: [{ value: 10 }]
-    };
+        const original = {
+            numbers: [1, 2, 3],
+            data: [{ value: 10 }]
+        };
 
-    const cloned = deepClone(original);
+        const cloned = deepClone(original);
 
-    assert.deepEqual(cloned, original, 'Структуры содержат одинаковые данные');
-    assert.notStrictEqual(cloned.numbers, original.numbers, 'Массив скопирован');
-    assert.notStrictEqual(cloned.data[0], original.data[0], 'Объект внутри массива скопирован');
+        assert.deepEqual(cloned, original, 'Структуры содержат одинаковые данные');
+        assert.notStrictEqual(cloned.numbers, original.numbers, 'Массив скопирован');
+        assert.notStrictEqual(cloned.data[0], original.data[0], 'Объект внутри массива скопирован');
     });
-
+    
 });

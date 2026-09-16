@@ -1,10 +1,18 @@
+'use strict';
+
 /**
  * Создает глубокую копию переданного значения.
  *
+ * Поддерживаются примитивные значения, массивы и объекты
+ * с тегом [object Object]. Для объектов сохраняется исходный прототип.
+ * Объекты других типов, например Date, Map, Set и RegExp,
+ * считаются неподдерживаемыми.
+ *
  * @param {*} value - значение, которое необходимо скопировать
  * @returns {*} глубокая копия переданного значения
+ * @throws {TypeError} если передан объект неподдерживаемого типа
  */
-const deepClone = function (value) {
+const deepClone = (value) => {
     if (value === null || typeof value !== 'object') {
         return value;
     }
@@ -13,11 +21,15 @@ const deepClone = function (value) {
         return value.map(deepClone);
     }
 
-    const copy = {};
+    if (Object.prototype.toString.call(value) !== '[object Object]') {
+        throw new TypeError('Unsupported object type');
+    }
 
-    Object.keys(value).forEach(function (key) {
-        copy[key] = deepClone(value[key]);
-    });
+    const entries = Object.entries(value)
+        .map(([key, item]) => [key, deepClone(item)]);
 
-    return copy;
+    return Object.assign(
+        Object.create(Object.getPrototypeOf(value)),
+        Object.fromEntries(entries)
+    );
 };

@@ -126,7 +126,7 @@ QUnit.module('Тестируем функцию deepClone', () => {
         assert.strictEqual(
             Object.getPrototypeOf(cloned),
             null,
-            'Прототип объекта сохранён'
+            'Прототип объекта сохранен'
         );
         assert.strictEqual(cloned.a.value, 1, 'Данные объекта скопированы');
         assert.notStrictEqual(
